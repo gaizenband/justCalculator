@@ -1,0 +1,34 @@
+* {
+    font-family: sans-serif;
+}
+
+#main {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    margin: 0 auto;
+}
+
+#allButtons > * {
+    height: 30px;
+}
+
+#numbers > * {
+    height: 30px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}
+
+#value {
+    width: 25em;
+}
+
+button {
+    width: 35px;
+}
+
+
