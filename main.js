@@ -28,7 +28,11 @@ const main = () => {
                 
                 break;
             case 'subtract':
-                resultStorage += +input.value;
+                if(!iterator){
+                    resultStorage = +input.value;
+                } else {
+                resultStorage -= +input.value;
+                }
                 break;
             case 'multiply':
                 if(!iterator){
