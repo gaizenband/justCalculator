@@ -16,7 +16,7 @@ const main = () => {
     let resultStorage = 0;
     let iterator = 0;
     let numStorage = '';
-
+    let operator = '';
 
     calculator.calculation = (e) => {
         const operation = e.target.dataset.operation;
@@ -34,8 +34,10 @@ const main = () => {
                     return 'division'; 
             }
         };
-        
-        let opeator = switchFn(operation);
+
+        if (operation != 'reset' && operation != 'result') {
+            operator = switchFn(operation);
+        }
 
         if (!input.value && 
         operation != 'reset' &&
@@ -86,7 +88,6 @@ const main = () => {
                        break;
                     case 'division':
                         resultStorage /= +inputValue;
-
                        break;
                 }
                 input.value = resultStorage;
