@@ -20,17 +20,31 @@ const main = () => {
 
     calculator.calculation = (e) => {
         const operation = e.target.dataset.operation;
-        if (!operation ||
-            !input.value && 
-            operation != 'reset' &&
-            operation != 'result') return;       
-            result.disabled = false;
-            
+        if (!operation) return;    
+
+        const switchFn = buttonValue => {
+            switch (buttonValue) {
+                case 'add':
+                    return 'addition';
+                case 'subtract':
+                    return 'subtraction';
+                case 'multiply':
+                    return 'multiplication';
+                case 'divide':
+                    return 'division'; 
+            }
+        };
+        
+        let opeator = switchFn(operation);
+
+        if (!input.value && 
+        operation != 'reset' &&
+        operation != 'result') return;
+        result.disabled = false;
 
         switch (operation) {
             case 'add':
-                resultStorage += +input.value;
-                operator = 'addition';                
+                resultStorage += +input.value;              
                 break;
             case 'subtract':
                 if(!iterator){
@@ -38,7 +52,6 @@ const main = () => {
                 } else {
                 resultStorage -= +input.value;
                 }
-                operator = 'subtraction';
                 break;
             case 'multiply':
                 if(!iterator){
@@ -46,7 +59,6 @@ const main = () => {
                 } else {
                     resultStorage *= +input.value;
                 }
-                operator = 'multiplication';
                 break;
             case 'divide':
                 if(!iterator){
@@ -54,7 +66,6 @@ const main = () => {
                 } else {
                     resultStorage /= +input.value;
                 }
-                operator = 'division';
                 break;
             case 'reset':
                 input.value = '';
@@ -65,20 +76,20 @@ const main = () => {
 
                 switch (operator) {
                     case 'addition':
-                        inputValue += +resultStorage;
+                        resultStorage += +inputValue;
                         break;
                     case 'subtraction':
-                       inputValue -= +resultStorage;            
+                        resultStorage -= +inputValue;            
                        break;
                     case 'multiplication':
-                       inputValue *= +resultStorage;            
+                        resultStorage *= +inputValue;           
                        break;
                     case 'division':
-                       inputValue /= +resultStorage;            
+                        resultStorage /= +inputValue;
+
                        break;
                 }
-
-                input.value = inputValue;
+                input.value = resultStorage;
                 break;
         }
 
