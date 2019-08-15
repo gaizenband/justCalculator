@@ -10,6 +10,7 @@ const main = () => {
     const input = document.querySelector('#value');
     const span = document.querySelector('span');
     const numbers = document.querySelector('#numbers');
+    const result = document.querySelector('#result');
 
     span.innerHTML = 0;
     let resultStorage = 0;
@@ -19,13 +20,16 @@ const main = () => {
 
     calculator.calculation = (e) => {
         const operation = e.target.dataset.operation;
-        if (!operation || !input.value) return;       
-        
+        if (!operation ||
+            !input.value && operation != 'reset' ||
+            !input.value && operation != 'result') return;       
+            result.disabled = false;
+            
 
         switch (operation) {
             case 'add':
                 resultStorage += +input.value;
-                
+                operator = 'addition';                
                 break;
             case 'subtract':
                 if(!iterator){
@@ -33,6 +37,7 @@ const main = () => {
                 } else {
                 resultStorage -= +input.value;
                 }
+                operator = 'subtraction';
                 break;
             case 'multiply':
                 if(!iterator){
@@ -40,6 +45,7 @@ const main = () => {
                 } else {
                     resultStorage *= +input.value;
                 }
+                operator = 'multiplication';
                 break;
             case 'divide':
                 if(!iterator){
@@ -47,9 +53,30 @@ const main = () => {
                 } else {
                     resultStorage /= +input.value;
                 }
+                operator = 'division';
                 break;
             case 'reset':
                 input.value = '';
+                break;
+            case 'result':
+                result.disabled = true;
+                let inputValue = +input.value;
+                console.log(operator);
+                switch (operator) {
+                    case 'addition':
+                        inputValue += +resultStorage;
+                        break;
+                    case 'subtraction':
+                       inputValue -= +resultStorage;            
+                       break;
+                    case 'multiplication':
+                       inputValue *= +resultStorage;            
+                       break;
+                    case 'division':
+                       inputValue /= +resultStorage;            
+                       break;
+                }
+                input.value = inputValue;
                 break;
         }
 
@@ -64,6 +91,7 @@ const main = () => {
                 numStorage = '';
                 break;
             case 'reset':
+            case 'result':    
                 span.innerHTML = 0;
                 resultStorage = 0;
                 iterator = 0;
