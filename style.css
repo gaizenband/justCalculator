@@ -3,32 +3,22 @@
 }
 
 #main {
+    text-align: center;
+}
+
+#buttonsWnumbers {
     display: flex;
     flex-direction: column;
-    width: 200px;
-    margin: 0 auto;
-}
-
-#allButtons > * {
-    height: 30px;
-}
-
-#numbers > * {
-    height: 30px;
-}
-
-.buttons {
-    display: flex;
-    flex-direction: row;
-    margin-top: 10px;
-}
-
-#value {
-    width: 25em;
+    margin-left: 40%;
+    margin-right: 40%;
 }
 
 button {
-    width: 35px;
+    padding: 10px;
+    width: 50px;
 }
 
+input {
+    width: 20em;
+}
 
