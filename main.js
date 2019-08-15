@@ -21,8 +21,9 @@ const main = () => {
     calculator.calculation = (e) => {
         const operation = e.target.dataset.operation;
         if (!operation ||
-            !input.value && operation != 'reset' ||
-            !input.value && operation != 'result') return;       
+            !input.value && 
+            operation != 'reset' &&
+            operation != 'result') return;       
             result.disabled = false;
             
 
