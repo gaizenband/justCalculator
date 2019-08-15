@@ -62,7 +62,7 @@ const main = () => {
             case 'result':
                 result.disabled = true;
                 let inputValue = +input.value;
-                console.log(operator);
+
                 switch (operator) {
                     case 'addition':
                         inputValue += +resultStorage;
@@ -77,6 +77,7 @@ const main = () => {
                        inputValue /= +resultStorage;            
                        break;
                 }
+
                 input.value = inputValue;
                 break;
         }
@@ -91,6 +92,7 @@ const main = () => {
                 iterator++;
                 numStorage = '';
                 break;
+                
             case 'reset':
             case 'result':    
                 span.innerHTML = 0;
