@@ -19,7 +19,7 @@ const main = () => {
 
     calculator.calculation = (e) => {
         const operation = e.target.dataset.operation;
-        if (!operation) return;       
+        if (!operation || !input.value) return;       
         
 
         switch (operation) {
