@@ -2,7 +2,17 @@ const calculator = {
 
     calculation: () => {},
 
-    numbers: () => {}
+    numbers: () => {},
+
+    addition: () => {},
+
+    subtraction: () => {},
+
+    multiplication: () => {},
+
+    division: () => {},
+
+    reset: () => {}
 }
 
 const main = () => {
@@ -12,11 +22,51 @@ const main = () => {
     const numbers = document.querySelector('#numbers');
     const result = document.querySelector('#result');
 
+    
+    
     span.innerHTML = 0;
     let resultStorage = 0;
     let iterator = 0;
     let numStorage = '';
     let operator = '';
+
+    calculator.reset = () => {
+        span.innerHTML = 0;
+        resultStorage = 0;
+        iterator = 0; 
+    };
+
+    calculator.addition = (resultStorage, inputValue) => {
+        resultStorage += inputValue; 
+        return resultStorage;
+    };
+
+    calculator.subtraction = (resultStorage, inputValue) => {
+        if (!iterator) {
+            resultStorage = +inputValue;
+        } else {
+            resultStorage -= inputValue;
+        }
+        return resultStorage
+    };
+
+    calculator.multiplication = (resultStorage, inputValue) => {
+        if (!iterator) {
+            resultStorage = +inputValue;
+        } else {
+            resultStorage *= inputValue;
+        }
+        return resultStorage
+    };
+
+    calculator.division = (resultStorage, inputValue) => {
+        if (!iterator) {
+            resultStorage = +inputValue;
+        } else {
+            resultStorage /= inputValue;
+        }
+        return resultStorage
+    };
 
     calculator.calculation = (e) => {
         const operation = e.target.dataset.operation;
@@ -32,10 +82,12 @@ const main = () => {
                     return 'multiplication';
                 case 'divide':
                     return 'division'; 
+                case 'reset':
+                    return 'reset';
             }
         };
 
-        if (operation != 'reset' && operation != 'result') {
+        if (operation != 'result') {
             operator = switchFn(operation);
         }
 
@@ -44,55 +96,23 @@ const main = () => {
         operation != 'result') return;
         result.disabled = false;
 
-        switch (operation) {
-            case 'add':
-                resultStorage += +input.value;              
+        switch (operator) {
+            case 'addition':
+                resultStorage = calculator.addition(resultStorage, +input.value);
                 break;
-            case 'subtract':
-                if(!iterator){
-                    resultStorage = +input.value;
-                } else {
-                resultStorage -= +input.value;
-                }
+            case 'subtraction':
+                resultStorage = calculator.subtraction(resultStorage, +input.value);          
                 break;
-            case 'multiply':
-                if(!iterator){
-                    resultStorage = +input.value;
-                } else {
-                    resultStorage *= +input.value;
-                }
+            case 'multiplication':
+                resultStorage = calculator.multiplication(resultStorage, +input.value);          
                 break;
-            case 'divide':
-                if(!iterator){
-                    resultStorage = +input.value;
-                } else {
-                    resultStorage /= +input.value;
-                }
+            case 'division':
+                resultStorage = calculator.division(resultStorage, +input.value);          
                 break;
             case 'reset':
-                input.value = '';
+                input.value = '';          
                 break;
-            case 'result':
-                result.disabled = true;
-                let inputValue = +input.value;
-
-                switch (operator) {
-                    case 'addition':
-                        resultStorage += +inputValue;
-                        break;
-                    case 'subtraction':
-                        resultStorage -= +inputValue;            
-                       break;
-                    case 'multiplication':
-                        resultStorage *= +inputValue;           
-                       break;
-                    case 'division':
-                        resultStorage /= +inputValue;
-                       break;
-                }
-                input.value = resultStorage;
-                break;
-        }
+        }   
 
         switch (operation) {
             case 'add':
@@ -101,20 +121,18 @@ const main = () => {
             case 'divide': 
                 span.innerHTML = +resultStorage;
                 input.value = '';
-                iterator++;
-                numStorage = '';
+                iterator++;         
                 break;
-                
             case 'reset':
-            case 'result':    
-                span.innerHTML = 0;
-                resultStorage = 0;
-                iterator = 0;
-                numStorage = '';
+                calculator.reset();
+                break;
+            case 'result':   
+                input.value = resultStorage; 
+                calculator.reset();
         }
+        numStorage = '';
     };
-
-    
+   
     calculator.numbers = (e) => {
         const operation = e.target.dataset.operation;
         if (!operation) return;
