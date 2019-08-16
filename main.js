@@ -22,8 +22,6 @@ const main = () => {
     const numbers = document.querySelector('#numbers');
     const result = document.querySelector('#result');
 
-    
-    
     span.innerHTML = 0;
     let resultStorage = 0;
     let iterator = 0;
